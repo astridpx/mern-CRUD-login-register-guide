@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import LoginForm from "./components/Login";
+import SignUp from "./components/SignUp";
+import Main from "./Main/Main";
+// import Navbar from "./components/Navbar.component";
 
 function App() {
+  const user = localStorage.getItem("token");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        {user && <Route path="/" exact element={<Main />} />}
+        <Route path="/signup" exact element={<SignUp />} />
+        <Route path="/login" exact element={<LoginForm />} />
+        <Route path="/" exact element={<Navigate replace to={"/login"} />} />
+      </Routes>
+    </>
   );
 }
 
